@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openweb-ui
+  namespace: openweb-ui
+  labels:
+    app: openweb-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openweb-ui
+  template:
+    metadata:
+      labels:
+        app: openweb-ui
+    spec:
+      containers:
+        - name: openweb-ui
+          image: ghcr.io/open-webui/open-webui:main
+          ports:
+            - containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 130
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          resources:
+            limits:
+              memory: 1000Mi
+              cpu: 1000m
+          envFrom:
+            - configMapRef:
+                name: openweb-ui
+            - secretRef:
+                name: openweb-ui

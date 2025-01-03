@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: openweb-ui-db
+  labels:
+    app: openweb-ui-db
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /nfs/openweb-ui-db
+    type: DirectoryOrCreate
+  storageClassName: local-path

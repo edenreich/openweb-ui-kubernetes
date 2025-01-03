@@ -1,0 +1,29 @@
+---
+version: "3"
+
+tasks:
+  cluster-create:
+    cmds:
+      - ctlptl apply -f Cluster.yaml
+      - helm repo add nginx-stable https://helm.nginx.com/stable && helm repo update
+      - helm install nginx-ingress nginx-stable/nginx-ingress --namespace nginx-ingress --create-namespace
+
+  cluster-delete:
+    cmds:
+      - ctlptl delete --cascade true -f Cluster.yaml
+
+  deploy:
+    cmds:
+      - kubectl apply -f openweb-ui/
+
+  deploy-db:
+    cmds:
+      - kubectl apply -f openweb-ui-db/
+
+  ui:
+    cmds:
+      - kubectl -n openweb-ui port-forward svc/openweb-ui 8080:8080
+
+  clean:
+    cmds:
+      - task: cluster-delete

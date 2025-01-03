@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openweb-ui-db
+  namespace: openweb-ui
+  labels:
+    app: openweb-ui-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openweb-ui-db
+  template:
+    metadata:
+      labels:
+        app: openweb-ui-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-bookworm
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: openweb-ui
+            - name: POSTGRES_USER
+              value: openweb-ui
+            - name: POSTGRES_PASSWORD
+              value: openweb-ui12345
+          volumeMounts:
+            - name: openweb-ui-db
+              mountPath: /var/lib/postgresql/data
+          resources:
+            limits:
+              memory: 5000Mi
+              cpu: 5000m
+      volumes:
+        - name: openweb-ui-db
+          persistentVolumeClaim:
+            claimName: openweb-ui-db

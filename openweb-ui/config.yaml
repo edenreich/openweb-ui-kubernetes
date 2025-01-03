@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openweb-ui
+  namespace: openweb-ui
+  labels:
+    app: openweb-ui
+data:
+  NODE_ENV: production
+  # OLLAMA_BASE_URLS: "http://phi3.ollama:8080;http://llama3.ollama:8080"
+  OPENAI_API_BASE_URLS: "https://api.groq.com/openai/v1;https://api.openai.com/v1"
+  DATABASE_URL: "psql://openweb-ui:openweb-ui12345@opostgres:5432/openweb-ui"

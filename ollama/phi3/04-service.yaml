@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phi3
+  namespace: ollama
+  labels:
+    app: phi3
+spec:
+  selector:
+    app: phi3
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 11434
