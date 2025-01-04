@@ -29,8 +29,8 @@ task deploy
 
 ## UI
 
-Run: `kubectl -n openweb-ui port-forward svc/openweb-ui-service 8080:8080`
+Run: `kubectl -n openweb-ui port-forward svc/openweb-ui-service 8080:8080` or `task ui`.
 
 Open: `http://localhost:8080`
 
-Create a dummy first account. TODO - probably possible to configure it with a configmap environment variable.
+Create a dummy first account.
