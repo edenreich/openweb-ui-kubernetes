@@ -1,4 +1,4 @@
-# Deploy Ollama onto Kubernetes
+# Deploy OpenWeb-UI onto Kubernetes
 
 A POC on How-to deploy Ollama onto Kubernetes.
 
